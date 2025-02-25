@@ -10,7 +10,7 @@ export default function Home() {
           <h1 className='text-[4rem] font-bold leading-18 font-serif'>Unlock Your Coding Potential</h1>
           <h3 className='text-[1.4rem] font-medium font-serif self-start'>Explore a world of coding challenges and weekly contests <br /> designed to hone your programming skills and unlock your <br /> full potential
           </h3>
-          <button className='self-start  flex justify-center items-cente pt-2 pb-2 pl-8 pr-8 bg-[#0f70e6] border-[#ffffff00] border-1 rounded-[5px] hover:cursor-pointer hover:border-1 hover:border-white hover:rounded-[5px] hover:bg-transparent ease-out duration-300'>Get Started</button>
+          <button className='self-start flex justify-center font-serif items-cente pt-2 pb-2 pl-8 pr-8 bg-[#0f70e6] border-[#ffffff00] border-1 rounded-[5px] hover:cursor-pointer hover:border-1 hover:border-white hover:rounded-[5px] hover:bg-transparent ease-out duration-300'>Get Started</button>
         </div>
       </div>
     </>
