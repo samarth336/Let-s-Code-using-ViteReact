@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router'
 export default function Footer() {
   return (
     <>
-      <footer className='flex flex-col items-center justify-center bg-[#060C2A]'>
+      <footer className='flex flex-col items-center justify-center bg-[#060C2A] font-[Times New Roman] font-serif'>
         <div className="h-64 w-full  text-white flex justify-evenly items-center leading-[2]">
           <NavLink
           to="/"
