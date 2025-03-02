@@ -6,107 +6,76 @@ import LogIn from "../Login/Login";
 
 export default function Header() {
   const navigate = useNavigate();
-
-  // ✅ Ensure state updates correctly
   const [showLogin, setShowLogin] = useState(false);
-  const [showSignin, setShowSignIn] = useState(false);
+  const [showSignIn, setShowSignIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // ✅ Check login state on mount
+  // Check if the user is already logged in when the page loads
   useEffect(() => {
-    const loggedInStatus = localStorage.getItem("isLoggedIn");
-    if (loggedInStatus === "true") {
-      setIsLoggedIn(true);
-    }
+    setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
   }, []);
 
-  // ✅ Handle Login Success
+  // Handle user login
   const handleLoginSuccess = () => {
     localStorage.setItem("isLoggedIn", "true");
     setIsLoggedIn(true);
     setShowLogin(false);
-    navigate("/MainPage"); // Redirect to MainPage after login
+    navigate("/MainPage");
   };
 
-  // ✅ Handle Logout
+  // Handle user logout
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
     setShowDropdown(false);
-    navigate("/"); // Redirect to home after logout
+    navigate("/");
   };
 
   return (
     <>
-      <div className="flex items-center justify-between w-full h-[4rem] bg-[#060C2A] px-10">
+      <header className="flex items-center justify-between w-full h-16 bg-[#060C2A] px-10">
         {/* Logo */}
-        <div className="flex items-center">
-          <Link to="/">
-            <img className="w-35" src="/src/assets/main_logo.png" alt="logo" />
-          </Link>
-        </div>
+        <Link to="/">
+          <img src="/src/assets/main_logo.png" alt="Logo" className="w-35" />
+        </Link>
 
         {/* Navigation Links */}
-        <div className="flex items-center gap-10">
-          <ul className="flex justify-between items-center gap-10">
+        <nav className="flex items-center gap-10">
+          <ul className="flex gap-10">
             <li>
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive ? "text-white font-normal" : "text-gray-400"
-                }
-              >
+              <NavLink to="/" className={({ isActive }) => (isActive ? "text-white font-normal" : "text-gray-400")}>
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/contactUs"
-                className={({ isActive }) =>
-                  isActive ? "text-white font-normal" : "text-gray-400"
-                }
-              >
+              <NavLink to="/contactUs" className={({ isActive }) => (isActive ? "text-white font-normal" : "text-gray-400")}>
                 Contact Us
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  isActive ? "text-white font-normal" : "text-gray-400"
-                }
-              >
+              <NavLink to="/about" className={({ isActive }) => (isActive ? "text-white font-normal" : "text-gray-400")}>
                 About
               </NavLink>
             </li>
           </ul>
 
-          {/* Conditional Rendering: Profile Icon OR Login/Sign In Buttons */}
+          {/* Authentication & Profile Section */}
           <div className="flex items-center gap-10">
             {isLoggedIn ? (
-              // ✅ Profile Icon with Dropdown
+              // Show profile icon if logged in
               <div className="relative">
                 <FaUserCircle
                   size={30}
                   className="text-white cursor-pointer hover:text-blue-400 transition"
                   onClick={() => setShowDropdown(!showDropdown)}
                 />
-
-                {/* Dropdown Menu */}
                 {showDropdown && (
                   <div className="absolute right-0 mt-3 bg-[#12172b] text-white w-48 rounded-lg shadow-lg border border-gray-700">
                     <ul className="flex flex-col">
-                      <li className="p-3 hover:bg-blue-500 cursor-pointer">
-                        Profile
-                      </li>
-                      <li className="p-3 hover:bg-blue-500 cursor-pointer">
-                        Settings
-                      </li>
-                      <li
-                        className="p-3 hover:bg-red-500 cursor-pointer"
-                        onClick={handleLogout}
-                      >
+                      <li className="p-3 hover:bg-blue-500 cursor-pointer">Profile</li>
+                      <li className="p-3 hover:bg-blue-500 cursor-pointer">Settings</li>
+                      <li className="p-3 hover:bg-red-500 cursor-pointer" onClick={handleLogout}>
                         Logout
                       </li>
                     </ul>
@@ -114,7 +83,7 @@ export default function Header() {
                 )}
               </div>
             ) : (
-              // ✅ Login & Sign In Buttons (If Not Logged In)
+              // Show Login & Sign In buttons if not logged in
               <>
                 <button
                   onClick={() => setShowLogin(true)}
@@ -131,11 +100,11 @@ export default function Header() {
               </>
             )}
           </div>
-        </div>
-      </div>
+        </nav>
+      </header>
 
-      {/* Show Login/Sign In Modal */}
-      {showSignin && <SignIn onClose={() => setShowSignIn(false)} />}
+      {/* Modals for Login & Sign In */}
+      {showSignIn && <SignIn onClose={() => setShowSignIn(false)} />}
       {showLogin && <LogIn onClose={handleLoginSuccess} />}
     </>
   );
