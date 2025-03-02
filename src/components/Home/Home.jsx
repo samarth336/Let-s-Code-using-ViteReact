@@ -1,6 +1,7 @@
-import React from 'react'
-
+import React, { useState } from 'react';
+import LogIn from '../Login/Login';
 export default function Home() {
+  const [showLogin, setShowLogin] = useState(false);
   return (
     <>
       {/* Hero Image */}
@@ -10,7 +11,9 @@ export default function Home() {
           <h1 className='text-[4rem] font-bold leading-18 font-serif'>Unlock Your Coding Potential</h1>
           <h3 className='text-[1.4rem] font-medium font-serif self-start'>Explore a world of coding challenges and weekly contests <br /> designed to hone your programming skills and unlock your <br /> full potential
           </h3>
-          <button className='self-start flex justify-center font-serif items-cente pt-2 pb-2 pl-8 pr-8 bg-[#0f70e6] border-[#ffffff00] border-1 rounded-[5px] hover:cursor-pointer hover:border-1 hover:border-white hover:rounded-[5px] hover:bg-transparent ease-out duration-300'>Get Started</button>
+          <button
+          onClick={() => setShowLogin(true)} 
+          className='self-start flex justify-center font-serif items-cente pt-2 pb-2 pl-8 pr-8 bg-[#0f70e6] border-[#ffffff00] border-1 rounded-[5px] hover:cursor-pointer hover:border-1 hover:border-white hover:rounded-[5px] hover:bg-transparent ease-out duration-300'>Get Started</button>
         </div>
       </div>
 
@@ -85,9 +88,12 @@ export default function Home() {
               <h3 className="text-xl">Students Practicing</h3>
             </div>
           </div>
-          <a href="sign_in.html" className="px-8 py-3 bg-blue-600 text-white text-lg rounded-md hover:bg-blue-700">Get Started</a>
+          <button 
+          onClick={() => setShowLogin(true)} 
+          className="px-8 py-3 bg-blue-600 text-white text-lg rounded-md hover:bg-blue-700">Get Started</button>
         </div>
       </div>
+      {showLogin && <LogIn onClose={() => setShowLogin(false)} />}
     </>
   )
 }
